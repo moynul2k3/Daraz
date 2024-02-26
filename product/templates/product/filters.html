@@ -1,0 +1,459 @@
+{% extends 'theme/base.html' %}
+{% block title %} {{ query | capfirst }} {{ name | capfirst }} {% endblock %}
+{% load static tailwind_tags %}
+
+{% block content %}
+<div>
+    <!-- .................header_groups................... -->
+    <section id="header_groups" class="mt-1 w-full">
+        <div class="h-auto w-[100%]  mt-3 rounded-[5px]">
+            <div class="grid grid-cols-7 p-[1px] justify-between gap-[1px] bg-[#01acff]">
+                {% for group in header_groups %}
+                <a href="{% url 'product:filters' %}?group={{ group.id }}&name={{ group.name }}" class="item group h-[200px]  bg-white hover:shadow-[-1px_0px_5px_#01acff,1px_0px_5px_#01acff] origin-center hover:rotate-6 transition ease-in-out delay-150">
+                    <div class="h-[140px] w-full flex justify-center items-center">
+                        <img src="{{ group.image.url }}" alt="" class="h-[100px] w-[100px]">
+                    </div>
+                    <div class="px-3 py-2">
+                        <p class="text-[14px] text-center group-hover:text-[#01acff] group-focus:text-[#01acff]"> {{ group.name }} </p>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        <script>
+            if($("#header_groups .item").length == 0) {
+                $("#header_groups").hide();
+            }
+        </script>
+    </section>
+    
+
+
+    <!-- ..................................filter_products........................................ -->
+    <section class="flex justify-start items-start gap-5 mt-10">
+        <div class="w-[20%] h-full p-5 bg-white">
+            <p class="text-xl font-semibold text-black/80">Filters</p>
+
+            <!-- ................Category................ -->
+            <ul  id="filter_category"  class="list-disc list-inside mt-5 ">
+                <p class="text-lg font-semibold text-black/60 pb-1">Category</p>
+                <div class="filter_box overflow-auto max-h-[200px] ps-3">
+                    {% for group in groups %}
+                    <li class="item hidden">
+                        <a href="{% url 'product:filters' %}?group={{ group.id }}&name={{ group.name }}" class="text-sm"> {{ group.name }} </a>
+                    </li>
+                    {% endfor %}
+                    <button class="more text-sm font-semibold text-[#01acff] hover:text-black">More +</button>
+                    <button class="less text-sm font-semibold text-[#f00] hidden">Less -</button>
+                </div>
+                <script>
+                    $("#filter_category").ready(function(){
+                        var filter_item = $("#filter_category .item");
+                        var hidden_item = $("#filter_category .item:hidden");
+                        
+                        var more = $("#filter_category .more");
+                        var less = $("#filter_category .less");
+
+                        filter_item.slice(0,5).show();
+                        if(filter_item.length < 5) {
+                            more.hide();
+                        }
+                        if(filter_item.length == 0) {
+                            $("#filter_category").hide();
+                        }
+                        more.on("click", function() {
+                            $("#filter_category .item:hidden").slice(0,5).show();
+                            if($("#filter_category .item:hidden").length == 0) {
+                                less.show();
+                                more.hide();
+                            }
+                        });
+                        less.on("click", function() {
+                            filter_item.slice(5,).hide();
+                            if(filter_item.length > 5) {
+                                less.hide();
+                                more.show();
+                            }
+                        });
+                    })
+                </script>
+            </ul>
+
+            <!-- .................Brand................... -->
+            <div  id="filter_brand"  class=" mt-5">
+                <p class="text-lg font-semibold text-black/60 pb-1">Brand</p>
+                <div class="filter_box overflow-auto max-h-[200px] ps-3">
+                    {% for brand in brands %}
+                    <div class="item hidden py-1">
+                        <a href="{% url 'product:filters' %}?group={{ brand.group_id }}&brand={{ brand.id }}" class="text-sm flex justify-start items-center gap-3"> 
+                            <input type="checkbox" name="" id="" class="appearance-none focus:ring-0 ">
+                            <p> {{ brand.name }} </p>
+                        </a>
+                    </div>
+                    {% endfor %}
+                    <button class="more text-sm font-semibold text-[#01acff] hover:text-black">More +</button>
+                    <button class="less text-sm font-semibold text-[#f00] hidden">Less -</button>
+                </div>
+                <script>
+                    $("#filter_brand").ready(function(){
+                        var filter_item = $("#filter_brand .item");
+                        
+                        var more = $("#filter_brand .more");
+                        var less = $("#filter_brand .less");
+
+                        filter_item.slice(0,5).show();
+                        if(filter_item.length < 5) {
+                            more.hide();
+                        }
+                        if(filter_item.length == 0) {
+                            $("#filter_brand").hide();
+                        }
+                        more.on("click", function() {
+                            $("#filter_brand .item:hidden").slice(0,5).show();
+                            if($("#filter_brand .item:hidden").length == 0) {
+                                less.show();
+                                more.hide();
+                            }
+                        });
+                        less.on("click", function() {
+                            filter_item.slice(5,).hide();
+                            if(filter_item.length > 5) {
+                                less.hide();
+                                more.show();
+                            }
+                        });
+                    })
+                </script>
+            </div>
+
+            <!-- .................Location................... -->
+            <div  id="filter_location"  class=" mt-5">
+                <p class="text-lg font-semibold text-black/60 pb-1">Location</p>
+                <div class="filter_box overflow-auto max-h-[200px] ps-3">
+                    {% for location in location %}
+                    <div class="item hidden py-1 group">
+                        <a href="{% url 'product:filters' %}?location={{ location.id }}" class="text-sm flex justify-start items-center gap-3"> 
+                            <input type="checkbox" name="" value="{{ location.id }}" id="" class="appearance-none focus:ring-0" {% if request.GET.location == location.id|lower %} checked {% endif %}>
+                            <p> {{ location.country_name }} </p>
+                        </a>
+                    </div>
+                    {% endfor %}
+                    <button class="more text-sm font-semibold text-[#01acff] hover:text-black">More +</button>
+                    <button class="less text-sm font-semibold text-[#f00] hidden">Less -</button>
+                </div>
+                <script>
+                    $("#filter_location").ready(function(){
+                        var filter_item = $("#filter_location .item");
+                        
+                        var more = $("#filter_location .more");
+                        var less = $("#filter_location .less");
+
+                        filter_item.slice(0,5).show();
+                        if(filter_item.length < 5) {
+                            more.hide();
+                        }
+                        if(filter_item.length == 0) {
+                            $("#filter_location").hide();
+                        }
+                        more.on("click", function() {
+                            $("#filter_location .item:hidden").slice(0,5).show();
+                            if($("#filter_location .item:hidden").length == 0) {
+                                less.show();
+                                more.hide();
+                            }
+                        });
+                        less.on("click", function() {
+                            filter_item.slice(5,).hide();
+                            if(filter_item.length > 5) {
+                                less.hide();
+                                more.show();
+                            }
+                        });
+                    })
+                </script>
+            </div>
+
+            <!-- .................Material................... -->
+            <div  id="filter_material"  class=" mt-5">
+                <p class="text-lg font-semibold text-black/60 pb-1">Material</p>
+                <div class="filter_box overflow-auto max-h-[200px] ps-3">
+                    {% for material in main_material %}
+                    <div class="item hidden py-1">
+                        <a href="{% url 'product:filters' %}?group={{ material.group_id }}&material={{ material.id }}" class="text-sm flex justify-start items-center gap-3"> 
+                            <input type="checkbox" name="" id="" class="appearance-none focus:ring-0 ">
+                            <p> {{ material.name }} </p>
+                        </a>
+                    </div>
+                    {% endfor %}
+                    <button class="more text-sm font-semibold text-[#01acff] hover:text-black">More +</button>
+                    <button class="less text-sm font-semibold text-[#f00] hidden">Less -</button>
+                </div>
+                <script>
+                    $("#filter_material").ready(function(){
+                        var filter_item = $("#filter_material .item");
+                        
+                        var more = $("#filter_material .more");
+                        var less = $("#filter_material .less");
+
+                        filter_item.slice(0,5).show();
+                        if(filter_item.length < 5) {
+                            more.hide();
+                        }
+                        if(filter_item.length == 0) {
+                            $("#filter_material").hide();
+                        }
+                        more.on("click", function() {
+                            $("#filter_material .item:hidden").slice(0,5).show();
+                            if($("#filter_material .item:hidden").length == 0) {
+                                less.show();
+                                more.hide();
+                            }
+                        });
+                        less.on("click", function() {
+                            filter_item.slice(5,).hide();
+                            if(filter_item.length > 5) {
+                                less.hide();
+                                more.show();
+                            }
+                        });
+                    })
+                </script>
+            </div>
+
+            <!-- .................Warranty Type................... -->
+            <div  id="filter_warranty"  class=" mt-5">
+                <p class="text-lg font-semibold text-black/60 pb-1">Warranty Type</p>
+                <div class="filter_box overflow-auto max-h-[200px] ps-3">
+                    {% for warranty in warranty_type %}
+                    <div class="item hidden py-1">
+                        <a href="{% url 'product:filters' %}?group={{ warranty.group_id }}&warranty={{ warranty.id }}" class="text-sm flex justify-start items-center gap-3"> 
+                            <input type="checkbox" name="" id="" class="appearance-none focus:ring-0 ">
+                            <p> {{ warranty.name }} </p>
+                        </a>
+                    </div>
+                    {% endfor %}
+                    <button class="more text-sm font-semibold text-[#01acff] hover:text-black">More +</button>
+                    <button class="less text-sm font-semibold text-[#f00] hidden">Less -</button>
+                </div>
+                <script>
+                    $("#filter_warranty").ready(function(){
+                        var filter_item = $("#filter_warranty .item");
+                        
+                        var more = $("#filter_warranty .more");
+                        var less = $("#filter_warranty .less");
+
+                        filter_item.slice(0,5).show();
+                        if(filter_item.length < 5) {
+                            more.hide();
+                        }
+                        if(filter_item.length == 0) {
+                            $("#filter_warranty").hide();
+                        }
+                        more.on("click", function() {
+                            $("#filter_warranty .item:hidden").slice(0,5).show();
+                            if($("#filter_warranty .item:hidden").length == 0) {
+                                less.show();
+                                more.hide();
+                            }
+                        });
+                        less.on("click", function() {
+                            filter_item.slice(5,).hide();
+                            if(filter_item.length > 5) {
+                                less.hide();
+                                more.show();
+                            }
+                        });
+                    })
+                </script>
+            </div>
+
+            <!-- .................Style................... -->
+            <!-- <div  id="filter_stlye"  class=" mt-5">
+                <p class="text-lg font-semibold text-black/60 pb-1">Style</p>
+                <div class="filter_box overflow-auto max-h-[200px] ps-3">
+                    {% for group in groups %}
+                    <div class="item hidden py-1">
+                        <a href="{% url 'product:filters' %}?group={{ group.id }}&name={{ group.name }}" class="text-sm flex justify-start items-center gap-3"> 
+                            <input type="checkbox" name="" id="" class="appearance-none focus:ring-0 ">
+                            <p> {{ group.name }} </p>
+                        </a>
+                    </div>
+                    {% endfor %}
+                    <button class="more text-sm font-semibold text-[#01acff] hover:text-black">More +</button>
+                    <button class="less text-sm font-semibold text-[#f00] hidden">Less -</button>
+                </div>
+                <script>
+                    $("#filter_stlye").ready(function(){
+                        var filter_item = $("#filter_stlye .item");
+                        
+                        var more = $("#filter_stlye .more");
+                        var less = $("#filter_stlye .less");
+
+                        filter_item.slice(0,5).show();
+                        if(filter_item.length < 5) {
+                            more.hide();
+                        }
+                        more.on("click", function() {
+                            $("#filter_stlye .item:hidden").slice(0,5).show();
+                            if($("#filter_stlye .item:hidden").length == 0) {
+                                less.show();
+                                more.hide();
+                            }
+                        });
+                        less.on("click", function() {
+                            filter_item.slice(5,).hide();
+                            if(filter_item.length > 5) {
+                                less.hide();
+                                more.show();
+                            }
+                        });
+                    })
+                </script>
+            </div> -->
+            
+
+            <!-- .................Pattern................... -->
+            <!-- <div  id="filter_pattern"  class=" mt-5">
+                <p class="text-lg font-semibold text-black/60 pb-1">Pattern</p>
+                <div class="filter_box overflow-auto max-h-[200px] ps-3">
+                    {% for group in groups %}
+                    <div class="item hidden py-1">
+                        <a href="{% url 'product:filters' %}?group={{ group.id }}&name={{ group.name }}" class="text-sm flex justify-start items-center gap-3"> 
+                            <input type="checkbox" name="" id="" class="appearance-none focus:ring-0 ">
+                            <p> {{ group.name }} </p>
+                        </a>
+                    </div>
+                    {% endfor %}
+                    <button class="more text-sm font-semibold text-[#01acff] hover:text-black">More +</button>
+                    <button class="less text-sm font-semibold text-[#f00] hidden">Less -</button>
+                </div>
+                <script>
+                    $("#filter_pattern").ready(function(){
+                        var filter_item = $("#filter_pattern .item");
+                        
+                        var more = $("#filter_pattern .more");
+                        var less = $("#filter_pattern .less");
+
+                        filter_item.slice(0,5).show();
+                        if(filter_item.length < 5) {
+                            more.hide();
+                        }
+                        more.on("click", function() {
+                            $("#filter_pattern .item:hidden").slice(0,5).show();
+                            if($("#filter_pattern .item:hidden").length == 0) {
+                                less.show();
+                                more.hide();
+                            }
+                        });
+                        less.on("click", function() {
+                            filter_item.slice(5,).hide();
+                            if(filter_item.length > 5) {
+                                less.hide();
+                                more.show();
+                            }
+                        });
+                    })
+                </script>
+            </div> -->
+            
+
+            <!-- .................Warranty Period................... -->
+            <div  id="filter_warranty_period"  class=" mt-5">
+                <p class="text-lg font-semibold text-black/60 pb-1">Warranty Period</p>
+                <div class="filter_box overflow-auto max-h-[200px] ps-3">
+                    {% for warranty_period in warranty_period %}
+                    <div class="item hidden py-1">
+                        <a href="{% url 'product:filters' %}?group={{ warranty_period.group_id }}&warranty_period={{ warranty_period.id }}" class="text-sm flex justify-start items-center gap-3"> 
+                            <input type="checkbox" name="" id="" class="appearance-none focus:ring-0 ">
+                            <p> {{ warranty_period.name }} </p>
+                        </a>
+                    </div>
+                    {% endfor %}
+                    <button class="more text-sm font-semibold text-[#01acff] hover:text-black">More +</button>
+                    <button class="less text-sm font-semibold text-[#f00] hidden">Less -</button>
+                </div>
+                <script>
+                    $("#filter_warranty_period").ready(function(){
+                        var filter_item = $("#filter_warranty_period .item");
+                        
+                        var more = $("#filter_warranty_period .more");
+                        var less = $("#filter_warranty_period .less");
+
+                        filter_item.slice(0,5).show();
+                        if(filter_item.length < 5) {
+                            more.hide();
+                        }
+                        if(filter_item.length == 0) {
+                            $("#filter_warranty_period").hide();
+                        }
+                        more.on("click", function() {
+                            $("#filter_warranty_period .item:hidden").slice(0,5).show();
+                            if($("#filter_warranty_period .item:hidden").length == 0) {
+                                less.show();
+                                more.hide();
+                            }
+                        });
+                        less.on("click", function() {
+                            filter_item.slice(5,).hide();
+                            if(filter_item.length > 5) {
+                                less.hide();
+                                more.show();
+                            }
+                        });
+                    })
+                </script>
+            </div>
+        </div>
+
+
+        <div class="w-[80%] h-full">
+            <!-- .................Just For You................... -->
+            <div class="relative">
+                <div class=" w-[100%]  mt-3 mb-5 rounded-[5px]">
+                    <div class="grid grid-cols-5 gap-4">
+                        {% for product in products %}
+                        <a href="{% url 'product:details' product.id %}" class="product hidden h-[335px] bg-white hover:shadow-lg hover:shadow-[#01aaff] transition-all ease-in-out duration-300 delay-200 rounded-md cursor-pointer">
+                            <div class="h-[200px] w-full">
+                                <img src="{{ product.image.url }}" alt="" class="h-[200px] w-full rounded-t-md">
+                            </div>
+                            <div class="px-3 py-2">
+                                <p class=" py-1 text-[14px] leading-5 line-clamp-2"> {{ product.name }} </p>
+                                <p class="text-[#01acff] font-semibold text-xl pt-1">
+                                    <i class="fa-solid fa-bangladeshi-taka-sign"></i>{{ product.sell_price }}
+                                </p>
+                                {% if product.discount > 0 %} 
+                                <p class="text-[#52525286] text-[12px]"> 
+                                    <del class="w-32 "><i class="fa-solid fa-bangladeshi-taka-sign"></i> {{ product.price }} </del>&nbsp;<span>-</span> {{ product.discount }} <span>%</span>
+                                </p>
+                                {% endif %}
+                            </div>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div id="moreProduct" class="h-80 w-full flex justify-center items-center absolute bottom-0 bg-gradient-to-t from-gray-100 from-70% via-gray-100/70 to-gray-100/0 ">
+                    <button class="loadMore px-6 py-2 mt-20 text-xl font-semibold border-2 border-[#01acff] hover:border-[#646464] rounded-md text-[#01acff] hover:text-[#646464]">Load more</button>
+                </div>
+
+                <script>
+                    $(".product").slice(0, 21).show();
+
+                    if($(".product").length <= 21){
+                            $("#moreProduct").hide();
+                        }
+                    $(".loadMore").on("click", function(){
+                        $(".product:hidden").slice(0, 14).show();
+
+                        if($(".product:hidden").length == 0){
+                            $("#moreProduct").hide();
+                        }
+                    })
+                    
+                </script>
+            </div>
+
+        </div>
+    </section>
+</div>
+
+{% endblock %}

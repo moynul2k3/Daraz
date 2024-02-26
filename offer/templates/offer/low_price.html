@@ -1,0 +1,211 @@
+{% extends 'theme/base.html' %}
+{% block title %} Wholesale {% endblock %}
+{% load static tailwind_tags %}
+{% block content %}
+<div>
+    <div class="absolute top-[100px] left-0">
+        <img src="/static/assets/banners/low_price.jpg" alt="" class="h-[400px] w-full">
+    </div>
+
+    <!-- .....................Vouchar Cupon................... -->
+    <section class="h-56 w-full overflow-auto relative mt-[430px]">
+        <div class="w-auto absolute h-full flex justify-start gap-4 py-2">
+            <div class="h-full w-[500px] flex divide-x-2 divide-dashed divide-[#01acff] rounded-xl border-2 border-[#01acff] bg-[#01aaff2d]">
+                <div class="w-[30%] h-full flex flex-col justify-center items-center">
+                    <img src="/static/assets/icon/daraz_vouchar_logo.png" alt="" class="h-14 w-14">
+                    <p class="text-lg px-5 text-nowrap">Daraz Vouchar</p>
+                </div>
+                <div class="w-[70%] h-full "></div>
+            </div>
+
+            
+            <div class="h-full w-[500px] flex divide-x-2 divide-dashed divide-[#01acff] rounded-xl border-2 border-[#01acff] bg-[#01aaff2d]">
+                <div class="w-[30%] h-full flex flex-col justify-center items-center">
+                    <img src="/static/assets/icon/daraz_vouchar_logo.png" alt="" class="h-14 w-14">
+                    <p class="text-lg px-5 text-nowrap">Daraz Vouchar</p>
+                </div>
+                <div class="w-[70%] h-full "></div>
+            </div>
+            <div class="h-full w-[500px] flex divide-x-2 divide-dashed divide-[#01acff] rounded-xl border-2 border-[#01acff] bg-[#01aaff2d]">
+                <div class="w-[30%] h-full flex flex-col justify-center items-center">
+                    <img src="/static/assets/icon/daraz_vouchar_logo.png" alt="" class="h-14 w-14">
+                    <p class="text-lg px-5 text-nowrap">Daraz Vouchar</p>
+                </div>
+                <div class="w-[70%] h-full "></div>
+            </div>
+            <div class="h-full w-[500px] flex divide-x-2 divide-dashed divide-[#01acff] rounded-xl border-2 border-[#01acff] bg-[#01aaff2d]">
+                <div class="w-[30%] h-full flex flex-col justify-center items-center">
+                    <img src="/static/assets/icon/daraz_vouchar_logo.png" alt="" class="h-14 w-14">
+                    <p class="text-lg px-5 text-nowrap">Daraz Vouchar</p>
+                </div>
+                <div class="w-[70%] h-full "></div>
+            </div>
+            <div class="h-full w-[500px] flex divide-x-2 divide-dashed divide-[#01acff] rounded-xl border-2 border-[#01acff] bg-[#01aaff2d]">
+                <div class="w-[30%] h-full flex flex-col justify-center items-center">
+                    <img src="/static/assets/icon/daraz_vouchar_logo.png" alt="" class="h-14 w-14">
+                    <p class="text-lg px-5 text-nowrap">Daraz Vouchar</p>
+                </div>
+                <div class="w-[70%] h-full "></div>
+            </div>
+            <div class="h-full w-[500px] flex divide-x-2 divide-dashed divide-[#01acff] rounded-xl border-2 border-[#01acff] bg-[#01aaff2d]">
+                <div class="w-[30%] h-full flex flex-col justify-center items-center">
+                    <img src="/static/assets/icon/daraz_vouchar_logo.png" alt="" class="h-14 w-14">
+                    <p class="text-lg px-5 text-nowrap">Daraz Vouchar</p>
+                </div>
+                <div class="w-[70%] h-full "></div>
+            </div>
+            <div class="h-full w-[500px] flex divide-x-2 divide-dashed divide-[#01acff] rounded-xl border-2 border-[#01acff] bg-[#01aaff2d]">
+                <div class="w-[30%] h-full flex flex-col justify-center items-center">
+                    <img src="/static/assets/icon/daraz_vouchar_logo.png" alt="" class="h-14 w-14">
+                    <p class="text-lg px-5 text-nowrap">Daraz Vouchar</p>
+                </div>
+                <div class="w-[70%] h-full "></div>
+            </div>
+            <div class="h-full w-[500px] flex divide-x-2 divide-dashed divide-[#01acff] rounded-xl border-2 border-[#01acff] bg-[#01aaff2d]">
+                <div class="w-[30%] h-full flex flex-col justify-center items-center">
+                    <img src="/static/assets/icon/daraz_vouchar_logo.png" alt="" class="h-14 w-14">
+                    <p class="text-lg px-5 text-nowrap">Daraz Vouchar</p>
+                </div>
+                <div class="w-[70%] h-full "></div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <!-- .........Top Deals............... -->
+    <section class="mt-10 pb-1 bg-white rounded-lg overflow-hidden">
+        <a href="#" class="flex justify-between items-center mb-5 relative group">
+            <img src="/static/assets/icon/top_deals.jpg" alt="" class="h-20 ">
+            <div class="absolute h-full w-full bg-black/10  hidden group-hover:block"></div>
+        </a>
+        <div class="h-auto w-[100%] mt-3 mb-5 rounded-[5px] px-5">
+            <div class="grid grid-cols-7 gap-4">
+                {% for product in top_deals %}
+                <a href="{% url 'product:details' product.id %}" class="h-[350px] border-[1px] border-[#01aaff48] hover:shadow-lg hover:shadow-[#01aaff] transition-all ease-in-out duration-300 delay-200 bg-white rounded-md cursor-pointer relative">
+                    <div class="h-[200px] w-full relative">
+                        <img src="{{ product.image.url }}" alt="" class="h-full w-full rounded-t-lg">
+                        <span class="text-[11px] absolute top-0 right-0 h-6 w-14 flex justify-center items-center text-white" style="background-image: url(&quot;//laz-img-cdn.alicdn.com/tfs/TB1nI2JehTpK1RjSZFGXXcHqFXa-120-56.png&quot;); background-position: center; background-size: contain; background-repeat: no-repeat;">-{{ product.discount }}%</span>
+
+                        <div class="absolute bottom-0 left-0 h-6 w-full flex gap-[0.5px]">
+                            <img src="/static/assets/icon/best_price.png" alt="" class="h-full">
+                            <img src="/static/assets/icon/wholesale_price.jpg" alt="" class="h-full">
+                            <img src="/static/assets/icon/free_delivery.png" alt="" class="h-full">
+                        </div>
+                    </div>
+                    <div class="px-3 py-2">
+                        <p class="line-clamp-2 py-1 text-[14px] leading-5">{{ product.name }}</p>
+                        <p class="text-[#01acff] font-semibold text-xl pt-1">
+                            <i class="fa-solid fa-bangladeshi-taka-sign"></i>{{ product.sell_price }}
+                        </p>
+                        <p class="text-[#52525286] text-[12px]">
+                            <del class="w-32 "><i class="fa-solid fa-bangladeshi-taka-sign"></i> {{ product.price }} </del>
+                        </p>
+                        <div class="mt-2">
+                            <button class="w-full bg-[#01acff] hover:bg-[#00000049] text-white font-semibold py-[2px] rounded-[4px]">Shop Now</button>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>  
+    </section>
+
+
+    <section class="mt-10 overflow-hidden">
+        <a href="#" class="flex justify-between items-center mb-5 relative group">
+            <img src="/static/assets/icon/bellowprice.jpg" alt="" class="h-80 w-full">
+            <div class="absolute h-full w-full bg-black/10  hidden group-hover:block"></div>
+        </a>
+        <div class="flex justify-between items-center mb-5">
+            <img src="/static/assets/icon/shop_by_category.png" alt="" class="h-20 w-full">
+        </div>
+
+        <div class=" mb-5 w-full overflow-x-scroll overflow-y-hidden" style="scrollbar-width: 2">
+            
+            <div class="w-[2000px] h-[170px] grid gap-2 grid-rows-1 grid-cols-12">
+                <a href="#">
+                    <div class="h-40 w-40 bg-[#01acff20] flex flex-col justify-center items-center hover:shadow-md hover:shadow-[#01aaff] transition-all ease-in-out duration-300 delay-200 rounded-md">
+                        <img src="/static/assets/temp/cat1.jpg" alt="" class="h-[90px] w-[70px]" style="clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);">
+                        <p>categories</p>
+                    </div>
+                </a>
+                <a href="#">
+                    <div class="h-40 w-40 bg-[#01acff20] flex flex-col justify-center items-center hover:shadow-md hover:shadow-[#01aaff] transition-all ease-in-out duration-300 delay-200 rounded-md">
+                        <img src="/static/assets/temp/cat1.jpg" alt="" class="h-[90px] w-[70px]" style="clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);">
+                        <p>categories</p>
+                    </div>
+                </a>
+                <a href="#">
+                    <div class="h-40 w-40 bg-[#01acff20] flex flex-col justify-center items-center hover:shadow-md hover:shadow-[#01aaff] transition-all ease-in-out duration-300 delay-200 rounded-md">
+                        <img src="/static/assets/temp/cat1.jpg" alt="" class="h-[90px] w-[70px]" style="clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);">
+                        <p>categories</p>
+                    </div>
+                </a>
+                <a href="#">
+                    <div class="h-40 w-40 bg-[#01acff20] flex flex-col justify-center items-center hover:shadow-md hover:shadow-[#01aaff] transition-all ease-in-out duration-300 delay-200 rounded-md">
+                        <img src="/static/assets/temp/cat1.jpg" alt="" class="h-[90px] w-[70px]" style="clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);">
+                        <p>categories</p>
+                    </div>
+                </a>
+            </div>
+            
+        </div>
+
+        <a href="#" class="flex justify-between items-center relative group">
+            <img src="/static/assets/icon/unlock_incredible_benifits.jpg" alt="" class="h-32 w-full">
+            <div class="absolute h-full w-full bg-black/10  hidden group-hover:block"></div>
+        </a>
+    </section>
+
+    <!-- .................Just For You................... -->
+    <section class="mt-10 w-full relative">
+        <div class="flex justify-between items-center mb-5">
+            <img src="/static/assets/icon/just_for_you.png" alt="" class="h-20 w-full">
+        </div>
+        <div class=" w-[100%]  mt-3 mb-5 rounded-[5px]">
+            <div class="grid grid-cols-7 gap-4">
+                {% for product in products %}
+                <a href="{% url 'product:details' product.id %}" class="product hidden h-[335px] bg-white hover:shadow-lg hover:shadow-[#01aaff] transition-all ease-in-out duration-300 delay-200 rounded-md cursor-pointer">
+                    <div class="h-[200px] w-full relative">
+                        <img src="{{ product.image.url }}" alt="" class="h-[200px] w-full rounded-t-md">
+                        <span class="text-[11px] absolute top-0 right-0 h-6 w-14 flex justify-center items-center text-white" style="background-image: url(&quot;//laz-img-cdn.alicdn.com/tfs/TB1nI2JehTpK1RjSZFGXXcHqFXa-120-56.png&quot;); background-position: center; background-size: contain; background-repeat: no-repeat;">-{{ product.discount }}%</span>
+                    </div>
+                    <div class="px-3 py-2">
+                        <p class="line-clamp-2 py-1 text-[14px] leading-5"> {{ product.name }} </p>
+                        <p class="text-[#01acff] font-semibold text-xl pt-1">
+                            <i class="fa-solid fa-bangladeshi-taka-sign"></i>{{ product.sell_price }}
+                        </p>
+                        {% if product.discount > 0 %} 
+                        <p class="text-[#52525286] text-[12px]"> 
+                            <del class="w-32 "><i class="fa-solid fa-bangladeshi-taka-sign"></i> {{ product.price }} </del>&nbsp;<span>-</span> {{ product.discount }} <span>%</span>
+                        </p>
+                        {% endif %}
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        <div id="moreProduct" class="h-80 w-full flex justify-center items-center absolute bottom-0 bg-gradient-to-t from-gray-100 from-70% via-gray-100/70 to-gray-100/0 ">
+            <button class="loadMore px-6 py-2 mt-20 text-xl font-semibold border-2 border-[#01acff] hover:border-[#646464] rounded-md text-[#01acff] hover:text-[#646464]">Load more</button>
+        </div>
+
+        <script>
+            $(".product").slice(0, 21).show();
+
+            if($(".product").length <= 21){
+                    $("#moreProduct").hide();
+                }
+            $(".loadMore").on("click", function(){
+                $(".product:hidden").slice(0, 14).show();
+
+                if($(".product:hidden").length == 0){
+                    $("#moreProduct").hide();
+                }
+            })
+            
+        </script>
+    </section>
+</div>
+{% endblock %}

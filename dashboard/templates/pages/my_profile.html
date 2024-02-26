@@ -1,0 +1,40 @@
+{% extends 'dashboard/dashboard.html' %}
+{% load static tailwind_tags %}
+{%block title%} Dashboard {%endblock%}
+
+{% block content %}
+
+<div class="px-10 py-5 w-full">
+    <p class="text-[20px] font-semibold text-[#01acff]">My Profile</p>
+    <div class="w-full h-[650px] mt-4 px-10 py-10 bg-white rounded-lg">
+        <div class="h-auto grid grid-flow-row grid-cols-3 content-start gap-10">
+            <div class="">
+                <p class="font-semibold">Full Name</p>
+                <p class="text-[16px] mt-2 uppercase"> {{ user.username }} </p>
+            </div>
+            <div class="">
+                <p class="font-semibold">Email Address &nbsp;<span class="border-l-2">&nbsp; <a href="#" class="text-black/50 hover:text-[#01acff] hover:underline">Change</a></span></p>
+                <p class="text-[16px] mt-2"> {{ user.email }} </p>
+            </div>
+            <div class="">
+                <p class="font-semibold">Mobile Number &nbsp;<span class="border-l-2">&nbsp; <a href="#" class="text-black/50 hover:text-[#01acff] hover:underline">Change</a></span></p>
+                <p class="text-[16px] mt-2"> {{ user.email }} </p>
+            </div>
+            <div class="">
+                <p class="font-semibold">Birthday</p>
+                <p class="text-[16px] mt-2"> 01 June 2003 </p>
+            </div>
+            <div class="">
+                <p class="font-semibold">Gender</p>
+                <p class="text-[16px] mt-2"> Male </p>
+            </div>
+        </div>
+        <div class="mt-24 flex flex-col ">
+            <a href="#" class="text-[#01acff]">Subscribe to our Newsletter</a>
+            <a href="#" class="mt-2 w-72 py-4 text-center text-white text-[16px] hover:text-black rounded-md bg-[#01acff] hover:bg-[#01acffc0]">EDIT PROFILE</a>
+            <a href="#" class="mt-2 w-72 py-4 text-center text-white text-[16px] hover:text-black rounded-md bg-[#01acff] hover:bg-[#01acffc0]">EDIT PASSWORD</a>
+        </div>
+        
+    </div>
+</div>
+{% endblock %}

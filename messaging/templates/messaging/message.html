@@ -1,0 +1,40 @@
+{% extends 'theme/base.html' %}
+{% block title %} Wholesale {% endblock %}
+{% load static tailwind_tags %}
+{% block content %}
+<div class="h-[800px] w-full py-10 flex justify-center items-center gap-3">
+    <div class="h-full w-32 bg-white shadow-xl shadow-black/30 rounded-lg flex flex-col items-center gap-3 py-4 overflow-auto">
+        {% for conversation in conversations %}
+        <div class="h-24 w-24 rounded-full bg-[#01acff] p-1">
+            <!-- <img src="/static/assets/temp/cat1.jpg" alt="" class="rounded-full "> -->
+            <!-- <p> {{ conversation.product.image }} </p> -->
+            <img src="{{ conversation.product.image.url }}" alt="" class="rounded-full h-full w-full">
+        </div>
+        {% endfor %}
+    </div>
+    <div class="h-full w-[700px] bg-white shadow-xl shadow-black/30 rounded-lg relative overflow-hidden">
+        <div class="h-full w-full pb-20 pt-3 overflow-y-scroll">
+            {% for message in messages %}
+            <div class="px-5 py-2 flex {% if message.created_by.id == sender %} justify-end {% else %} justify-start {% endif %}">
+                <p class="w-[70%] bg-[#01acff] p-3 rounded-lg text-white"> {{ message.message }} </p>
+            </div>
+            {% endfor %}
+        </div>
+
+        
+
+        <div class="absolute bottom-0 w-full bg-white">
+            <form action="." method="post" class="w-full flex justify-between items-center gap-3 px-10 py-3 border-t-[1px] ">
+                {% csrf_token %}
+                    <a href="#" class="group">
+                        <i class='bx bx-plus text-3xl text-black/30 group-hover:text-[#01acff]'></i>
+                    </a>
+                    <div class="w-full">
+                        {{ form.message }}
+                    </div>
+                    <button type="submit"><i class='bx bxs-send text-3xl text-black/30 hover:text-[#01acff]'></i></button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
