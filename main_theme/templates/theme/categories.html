@@ -1,0 +1,36 @@
+{% load static tailwind_tags %}
+<ul id="hero" class="h-96 w-[280px] relative rounded-l-[10px] bg-white shadow-[inset_1px_1px_5px_#01acff]  border-r-2 border-blue-400 py-3 text-sm text-black/50">
+    {% for category in categories %}
+    <li class="category_item z-50 ps-5 hover:bg-black/5 hover:text-[#01acff]">
+        <p class="hover_category w-full py-[5px] font-semibold flex justify-between items-center cursor-pointer "> {{ category.name }} </p>
+
+
+        <div id="sub_categories" class="absolute hidden top-0 left-[260px] h-96 w-[315px]">
+            <ul class="h-96 w-[280px] ms-[35px] bg-white shadow-[inset_1px_1px_5px_#01acff]  border-r-2 border-blue-400 py-3 text-sm text-black/50">
+            {% for subcategory in category.subcategory_set.all %}
+                <li class="sub_category_item z-50 ps-5 hover:bg-black/5 hover:text-[#01acff]">
+                    <a href="{% url 'product:filters' %}?subcategory={{ subcategory.id }}&name={{ subcategory.name }}" class="hover_sub_category w-full py-[5px] font-semibold flex justify-between items-center"> {{ subcategory.name }} </a>
+
+
+                    <div id="groups" class="absolute hidden top-0 left-[280px] h-96 w-[875px]">
+                        <div class="h-96 w-[835px] ms-[35px] rounded-e-[10px] bg-white shadow-[inset_1px_1px_5px_#01acff] border-r-2 border-blue-400 py-3 text-sm text-black/50">
+                            <p class="ms-10 mt-2 text-lg font-bold">{{ subcategory.name }}</p>
+                            <ul class="grid grid-cols-5 justify-start items-start gap-3 pt-5 px-10">
+                                {% for group in subcategory.group_set.all %}
+                                <a href="{% url 'product:filters' %}?group={{ group.id }}&name={{ group.name }}" class="group_item">
+                                    <li class=" flex flex-col justify-center items-center">
+                                        <img src="{{ group.image.url }}" class="h-[55px] w-[55px] rounded-full  shadow-[inset_-125px_-125px_0px_#01acff]">
+                                        <p class="pt-2 text-sm text-center hover_group"> {{group.name}} </p>
+                                    </li>
+                                </a>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+    </li>
+    {% endfor %}
+</ul>

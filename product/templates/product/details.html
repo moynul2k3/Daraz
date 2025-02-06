@@ -1,0 +1,267 @@
+{% extends 'theme/base.html' %}
+{% block title %} {{ product_datails.name }} {% endblock %}
+{% load static tailwind_tags %}
+
+{% block content %}
+<div>
+    <section class="h-auto w-full bg-white mt-8 flex justify-evenly items-start">
+        <!-- ....................Left Side.................. -->
+        <div class="h-full w-[28%] p-2 flex flex-col justify-start items-center">
+            <div class="h-[400px] w-full border-[1px] rounded-sm">
+                <img src="{{ product_datails.image.url }}" alt="" class="h-full w-full rounded-md overflow-hidden">
+            </div>
+            <div class="h-auto w-full overflow-x-scroll py-2 mt-3">
+                <div class="h-auto w-[500px] flex flex-nowrap justify-start items-center gap-3">
+                    <img src="{{ product_datails.image.url }}" alt="" class="h-[50px] w-[50px] rounded-md overflow-hidden">
+                    <img src="{{ product_datails.image.url }}" alt="" class="h-[50px] w-[50px] rounded-md overflow-hidden">
+                    <img src="{{ product_datails.image.url }}" alt="" class="h-[50px] w-[50px] rounded-md overflow-hidden">
+                    <img src="{{ product_datails.image.url }}" alt="" class="h-[50px] w-[50px] rounded-md overflow-hidden">
+                    <img src="{{ product_datails.image.url }}" alt="" class="h-[50px] w-[50px] rounded-md overflow-hidden">
+                    <img src="{{ product_datails.image.url }}" alt="" class="h-[50px] w-[50px] rounded-md overflow-hidden">
+                </div>
+            </div>
+        </div>
+
+
+        <!-- .....................middle side............... -->
+        <div class="h-full w-[42%] px-2 pe-5 pt-3">
+            <!-- ..........Div-1------------- -->
+            <div class="w-full h-auto">
+                <p class="text-2xl "> {{ product_datails.name }} </p>
+            </div>
+
+            <!-- ............Div-2............... -->
+            <div class="mt-3 flex justify-between items-start">
+                <div class="w-[85%]">
+                    <div class=" text-[#01acff] px-2">
+                        <i class='bx bxs-star'></i>
+                        <i class='bx bxs-star'></i>
+                        <i class='bx bxs-star'></i>
+                        <i class='bx bx-star'></i>
+                        <i class='bx bx-star'></i>
+                        <a href="#" class="hover:underline px-2 text-sm font-semibold text-black/65 hover:text-black">68 Ratings</a>
+                        <a href="#" class="hover:underline px-2 text-sm font-semibold text-black/65 hover:text-black border-s-2">71 Answered Questions</a>
+                    </div>
+                    <div class="flex flex-wrap">
+                        <a href="#" class="hover:underline px-2 text-sm font-semibold text-black/65 hover:text-black">Brand: {{ product_datails.brand }}</a>
+                        <a href="#" class="hover:underline px-2 text-sm font-semibold text-black/65 hover:text-black border-s-2">More Exercise & Fitness from {{ product_datails.brand }}</a>
+                    </div>
+                </div>
+                <div class="w-[15%] flex justify-end items-start gap-5 text-2xl pe-5 text-black/80">
+                    <a href="#"><i class='bx bx-share-alt' ></i></a>
+                    <a href="#"><i class='bx bx-heart' ></i></a>
+                </div>
+            </div>
+
+
+            <!-- ..........div-3......... -->
+            <div class="mt-5 border-b-[1px]">
+                <img src="/static/assets/banners/daraz-2.2.jpg" alt="" class="w-full"> 
+            </div>
+
+
+            <!-- ...................div-4................ -->
+            <div class="mt-2">
+                <p class="text-[#01acff] font-semibold text-3xl pt-1">
+                    <i class="fa-solid fa-bangladeshi-taka-sign"></i>{{ product_datails.sell_price }}
+                </p>
+                {% if product_datails.discount > 0 %} 
+                <p class="text-[#52525286] text-[16px]"> 
+                    <del class="w-32 "><i class="fa-solid fa-bangladeshi-taka-sign"></i> {{ product_datails.price }} </del>&nbsp;<span>-</span> {{ product_datails.discount }} <span>%</span>
+                </p>
+                {% endif %}
+            </div>
+
+            <!-- .............Div-5...................... -->
+            <div class="mt-3 pb-3 flex justify-start items-center gap-3 text-sm border-b-[1px]">
+                <p>Promotions</p>
+                <a href="#" class="px-3 py-[4px] text-xs bg-[#01acff] text-white">Min. Spend ৳ 1,000 Capped at ৳ 4,000</a>
+            </div>
+
+            <!-- ..............div-6................... -->
+            <div class="mt-5">
+                <div class="flex justify-start items-start gap-5">
+                    <p class="w-28 text-md font-semibold text-black/60">Color Family</p>
+                    <div>
+                        <p>Black</p>
+                        <div class="mt-2 flex justify-start items-start gap-3">
+                            <img src="{{ product_datails.image.url }}" alt="" class="h-10 w-10 border-[1px] rounded-sm">
+                            <img src="{{ product_datails.image.url }}" alt="" class="h-10 w-10 border-[1px] rounded-sm">
+                            <img src="{{ product_datails.image.url }}" alt="" class="h-10 w-10 border-[1px] rounded-sm">
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-start items-start gap-5 mt-3">
+                    <p class="w-28 text-md font-semibold text-black/60">Size</p>
+                    <div>
+                        <p>Int</p>
+                        <div class="mt-2 flex justify-start items-start gap-3">
+                            <a href="#" class="h-8 w-8 text-xs border-[1px] flex justify-center items-center">M</a>
+                            <a href="#" class="h-8 w-8 text-xs border-[1px] flex justify-center items-center">L</a>
+                            <a href="#" class="h-8 w-8 text-xs border-[1px] flex justify-center items-center">XL</a>
+                            <a href="#" class="h-8 w-8 text-xs border-[1px] flex justify-center items-center">XXL</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-start items-center gap-5 mt-6">
+                    <p class="w-28 text-md font-semibold text-black/60">Quantity</p>
+                    <div class=" flex justify-start items-start border-[1px]">
+                        <button class="h-8 w-10 flex justify-center items-center bg-black/10"><i class='bx bx-minus' ></i></button>
+                        <p class="h-8 w-10 flex justify-center items-center">1</p>
+                        <button class="h-8 w-10 flex justify-center items-center bg-black/10"><i class='bx bx-plus' ></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- .................Div-7................. -->
+            <div class="flex justify-start items-center gap-2 mt-3">
+                <button class="h-10 w-52 bg-[#01acff] hover:bg-[#44a0ce] text-white rounded-sm">Buy Now</button>
+                <button class="h-10 w-52 bg-[#ff5656] hover:bg-[#c94444] text-white rounded-sm">Add to Cart</button>
+            </div>
+        </div>
+
+        <!-- .................right side.................... -->
+        <div class="h-full w-[30%] flex flex-col justify-end items-end">
+            <!-- ................Delivery.............. -->
+            <div class="pt-3 bg-[#00aaff20]">
+                <div class="flex justify-between items-start px-5">
+                    <p class="text-xs">Delivery</p>
+                    <a href="#" class=""><p class="h-4 w-4 text-[12px] border-2 border-black/20 font-semibold flex justify-center items-center rounded-full">i</p></a>
+                </div>
+                <div class="flex justify-between items-start mt-3 border-b-[1px] border-black/10 px-5 pb-3">
+                    <div class="flex justify-start items-start gap-3 w-full">
+                        <i class="fa-solid fa-location-dot text-[#01acff] text-2xl flex justify-center items-center"></i>
+                        <p class="text-md w-[60%]">Dhaka, Dhaka North, Banani Road No. 12 - 19</p>
+                    </div>
+                    <a href="#" class="text-[#01acff] hover:underline">Change</a>
+                </div>
+                <div class="mt-3 border-b-[1px] border-black/10 px-5 pb-3">
+                    <div class="flex justify-between items-start gap-3 ">
+                        <i class="fa-solid fa-handshake text-[#01acff] text-xl flex justify-center items-center"></i> 
+                        <div class="text-sm w-[90%] ">
+                            <div class="flex justify-between gap-10">
+                                <p><span class="font-bold">Free Delivery</span> 17 Feb - 22 Feb <br><span class="text-black/70">5 - 10 day(s)</span></p>
+                                <p class="font-bold">FREE</p>
+                            </div>
+                            <p class="bg-white rounded-sm text-sm p-2 mt-2">Enjoy free shipping promotion with minimum spend of ৳ 499 from Eva Fashion Gallery.</p>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center gap-3 mt-5">
+                        <i class='bx bx-money-withdraw text-[#01acff] text-xl flex justify-center items-center' ></i>
+                        <div class="text-[16px] w-[90%] ">
+                            <p>Cash on Delivery Available</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ...............Service.................... -->
+            <div class="w-full pt-3 bg-[#00aaff20]">
+                <div class="flex justify-between items-start px-5">
+                    <p class="text-xs">Service</p>
+                    <a href="#" class=""><p class="h-4 w-4 text-[12px] border-2 border-black/20 font-semibold flex justify-center items-center rounded-full">i</p></a>
+                </div>
+                <div class="flex flex-col gap-5 justify-between items-start mt-3 border-b-[1px] border-black/10 px-5 pb-3">
+                    <div class="flex justify-start items-start gap-3 w-full">
+                        <i class="fa-regular fa-clock  text-[#01acff] text-xl flex justify-center items-center"></i>
+                        <p class="text-md w-[60%] leading-5">7 Day Return <br> <span class="text-xs text-black/60 font-semibold">Change of mind applicable</span> </p>
+                    </div>
+                    <div class="flex justify-start items-center gap-3 w-full">
+                        <i class='bx bx-shield-x text-[#01acff] text-2xl flex justify-center items-center' ></i>
+                        <p class="text-md w-[60%] leading-5">Warranty not available</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ................Sold By.............. -->
+            <div class="h-full mt-5 pt-3 bg-[#00aaff20]">
+                <div class="flex justify-between items-start px-5">
+                    <p class="text-xs">Sold by</p>
+                </div>
+                <div class="flex justify-between items-start mt-3 px-5 pb-3">
+                    <a href="#" class="text-xl w-[60%]">Eva Fashion Gallery</a>
+
+                    
+                    <form action="." method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="font-semibold text-[#01acff]"><i class='bx bxs-chat pe-1 text-sm' ></i>CHAT</button>
+                    </form>
+
+
+                </div>
+                <div class="flex justify-between items-start border-y-[1px] border-black/10 divide-x-[1px] divide-black/10">
+                    <div class="flex-1 ps-4 py-2 text-black/60 font-semibold text-sm">
+                        <p>Positive Seller Ratings</p>
+                        <p class="text-[30px] pt-5 pb-2">80%</p>
+                    </div>
+                    <div class="flex-1 ps-4 py-2 text-black/60 font-semibold text-sm">
+                        <p>Positive Seller Ratings</p>
+                        <p class="text-[30px] pt-5 pb-2">80%</p>
+                    </div>
+                    <div class="flex-1 ps-4 py-2 text-black/60 font-semibold text-sm">
+                        <p>Positive Seller Ratings</p>
+                        <p class="text-[30px] pt-5 pb-2">80%</p>
+                    </div>
+                </div>
+                <div class="h-10 flex justify-center items-center">
+                    <a href="#" class="hover:underline text-[#01acff] text-sm font-semibold ">Visit Store</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <section class="h-auto w-full bg-white mt-5 flex justify-between items-center gap-5">
+        <div class="w-[70%] "></div>
+        <div class="w-[30%] bg-[#00aaff20] px-2">
+            <!-- .................Related Products................... -->
+            <section class="mt-3 relative">
+                <p class="text-2xl m-0 p-0 font-semibold text-[#01acff]">Related Products ({{ products.count }})</p>
+                <div class=" w-[100%]  mt-3 mb-5 rounded-[5px]">
+                    <div class="grid grid-cols-2 gap-4">
+                        {% for product in products %}
+                        <a href="{% url 'product:details' product.id %}" class="product hidden h-[335px] bg-white hover:shadow-lg hover:shadow-[#01aaff] transition-all ease-in-out duration-300 delay-200 rounded-md cursor-pointer">
+                            <div class="h-[200px] w-full">
+                                <img src="{{ product.image.url }}" alt="" class="h-[200px] w-full rounded-t-md">
+                            </div>
+                            <div class="px-3 py-2">
+                                <p class=" py-1 text-[14px] leading-5 line-clamp-2"> {{ product.name }} </p>
+                                <p class="text-[#01acff] font-semibold text-xl pt-1">
+                                    <i class="fa-solid fa-bangladeshi-taka-sign"></i>{{ product.sell_price }}
+                                </p>
+                                {% if product.discount > 0 %} 
+                                <p class="text-[#52525286] text-[12px]"> 
+                                    <del class="w-32 "><i class="fa-solid fa-bangladeshi-taka-sign"></i> {{ product.price }} </del>&nbsp;<span>-</span> {{ product.discount }} <span>%</span>
+                                </p>
+                                {% endif %}
+                            </div>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div id="moreProduct" class="h-80 w-full flex justify-center items-center absolute bottom-0 bg-gradient-to-t from-gray-100 from-70% via-gray-100/70 to-gray-100/0 ">
+                    <button class="loadMore px-6 py-2 mt-20 text-xl font-semibold border-2 border-[#01acff] hover:border-[#646464] rounded-md text-[#01acff] hover:text-[#646464]">Load more</button>
+                </div>
+
+                <script>
+                    $(".product").slice(0, 10).show();
+
+                    if($(".product").length <= 10){
+                            $("#moreProduct").hide();
+                        }
+                    $(".loadMore").on("click", function(){
+                        $(".product:hidden").slice(0, 6).show();
+
+                        if($(".product:hidden").length == 0){
+                            $("#moreProduct").hide();
+                        }
+                    })
+                    
+                </script>
+            </section>
+        </div>
+    </section>
+</div>
+{% endblock %}

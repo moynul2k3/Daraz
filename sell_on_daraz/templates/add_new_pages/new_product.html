@@ -1,0 +1,116 @@
+{% extends 'sell_on_daraz/sale_on_daraz.html' %}
+{% load static tailwind_tags %}
+{%block title%} sell_on_daraz {%endblock%}
+
+{% block content %}
+<div class="px-10 py-5 w-full">
+    <p class="text-[20px] font-semibold text-[#01acff]">Sell On Daraz | My Products</p>
+    <div class="w-full h-5 mt-4">
+        <div class="h-auto w-full col-span-3 rounded-md py-4 bg-white">
+            <div id="my_product" class="px-4 pb-3 bg-white flex justify-between items-center">
+                <p id="add_product_title" class="title text-lg font-semibold">Add A New Product</p>
+
+                <a href="{% url 'sell_on_daraz:for_sale' %}" class="link px-5 py-2 border-[1px] rounded-md hover:bg-black/5 font-semibold text-[#01acff] hover:text-[#f00]">Product List</a>
+            </div>
+            <div id="on_click" class="h-[570px] relative overflow-auto">
+                <!-- ...............new Product Form............... -->
+                <form action="." method="post" id="newProductForm" data-subcategories-url="{% url 'sell_on_daraz:load_options' %}" enctype="multipart/form-data" class="h-full">
+                <!-- group, name, description, price, discount, color_family, image, brand, sku, flash_sale, is_sold -->
+                <!-- ...........................Left Side............................ -->
+
+                    {% csrf_token %}
+                    <div class="w-full h-auto flex justify-center items-center gap-5">
+                        <div class="flex flex-col gap-2 w-[300px]">
+                            {{ new_product_form.category }}
+                        </div>
+                        <div class="flex flex-col gap-2 w-[300px]">
+                            {{ new_product_form.subcategory }}
+                        </div>
+                        <div class="flex flex-col gap-2 w-[300px]">
+                            {{ new_product_form.group }}
+                        </div>
+                    </div>
+                    <div class="w-full h-auto mt-10 px-10 pb-3 flex justify-between items-start gap-5">
+                        <div class="w-[65%] pe-5 flex flex-col gap-5 border-r-2 border-[#01aaff49]">
+                            <div class="relative z-0 w-full mb-5 group">
+                                {{ new_product_form.name }}
+                                <label for="name" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-[#01acff]  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Name</label>
+                            </div>
+                            <div class="relative z-0 w-full mb-5 group border-0">
+                                {{ new_product_form.description }}
+                            </div>
+                        </div>
+
+                        <!-- ......................rignt side..................... -->
+                        <div class="w-[35%] flex flex-col gap-5">
+                            <div class="flex gap-2">
+                                <div class="relative z-0 w-[70%] mb-5 group">
+                                    {{ new_product_form.price }}
+                                    <label for="price" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-[#01acff]  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:translate-y-6">Price ( Taka )</label>
+                                </div>
+                                <div class="relative z-0 w-[30%] mb-5 group">
+                                    {{ new_product_form.discount }}
+                                    <label for="discount" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-[#01acff]  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:translate-y-6">Discount(%)</label>
+                                </div>
+                            </div>
+                            <div class="flex gap-10">
+                                <div class="relative z-0 w-full mb-5 group">
+                                    {{ new_product_form.sku }}
+                                    <label for="sku" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-[#01acff]  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">SKU</label>
+                                </div>
+                            </div>
+                        
+                            <div class="h-10 w-full p-0 m-0 text-sm flex justify-center items-center border-[1px] rounded-lg overflow-hidden bg-transparent">
+                                {{ new_product_form.image }}
+                            </div>
+                            
+                            
+
+                            <button name="new_product_form" type="submit" class="mt-10 px-16 h-10 font-semibold bg-[#01aaff3d] hover:bg-[#01acff] hover:text-white  border border-gray-300 rounded-lg focus:ring-[#01aaff] focus:border-[#01aaff3d]">ADD</button>
+                        </div>
+                    </div>
+                </form>
+
+
+                <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+                <script>
+                    $("#id_category").change(function () {
+                        var url = $("#newProductForm").attr("data-subcategories-url");
+                        var catId = $(this).val();
+
+                        $.ajax({
+                            url: url,
+                            data: {
+                            'category': catId,
+                            },
+                            success: function (data) {
+                            $("#id_subcategory").html(data);
+                            }
+                        });
+
+                    });
+                    $("#id_subcategory").change(function () {
+                        var url = $("#newProductForm").attr("data-subcategories-url");
+                        var subcatId = $(this).val();
+
+                        $.ajax({
+                            url: url,
+                            data: {
+                            'subcategory': subcatId
+                            },
+                            success: function (data) {
+                            $("#id_group").html(data);
+                            }
+                        });
+
+                    });
+
+                    $("#add_color_family").click(function(){
+                        $("#new_color_family").show();
+                    })
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

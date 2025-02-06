@@ -1,0 +1,105 @@
+{% extends 'dashboard/dashboard.html' %}
+{% load static tailwind_tags %}
+{%block title%} Dashboard {%endblock%}
+
+{% block content %}
+<div class="px-10 py-5 w-full">
+    <p class="text-[20px] font-semibold text-[#01acff]">Manage My Account</p>
+    <div class="w-full grid grid-cols-3 grid-row-2 gap-x-2 gap-y-5 pt-4">
+        <div class="h-52 rounded-md p-4 bg-white">
+            <div class="flex items-center gap-2 divide-x-2">
+                <p>Personal Profile</p>
+                <a href="#" class="ps-1 text-sm text-black/50 hover:text-[#01acff]">EDIT</a>
+            </div>
+            <div class="mt-4">
+                <p class="uppercase">{{user.username}}</p>
+                <p>{{user.email}}</p>
+                <br>
+                <a href="#" class="text-[#01acff] hover:text-[#01aaff81]">Subscribe to our Newsletter</a>
+            </div>
+        </div>
+        <div class="h-52 col-span-2 rounded-md p-4 bg-white">
+            <div class="flex items-center gap-2 divide-x-2">
+                <p>Address Book</p>
+                <a href="#" class="ps-1 text-sm text-black/50 hover:text-[#01acff]">EDIT</a>
+            </div>
+            <div class="flex divide-x-2">
+                <div class="w-full h-full px-2 pt-2 pb-5">
+                    <p class="font-bold text-[18px]"> {{user.username}} </p>
+                    <p class="text-sm pt-3">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim inventore natus asperiores est quasi vel fuga odit ex quisquam dolorem!</p>
+                </div>
+                <div class="w-full h-full ps-4 pe-2 pt-2 pb-5">
+                    <p class="font-bold text-[18px]"> {{user.username}} </p>
+                    <p class="text-sm pt-3">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim inventore natus asperiores est quasi vel fuga odit ex quisquam dolorem!</p>
+                </div>
+            </div>
+        </div>
+        <div class="h-auto w-full col-span-3 rounded-md py-4 bg-white">
+            <div class="ps-4 pb-3 bg-white">
+                <p class="text-lg font-semibold">Recent Orders</p>
+            </div>
+            <div class="h-[360px] overflow-auto relative">
+                <table class="w-full">
+                    <tr class="w-full h-12 bg-gray-100 sticky top-0 backdrop-opacity-0">
+                        <td class="ps-5 w-[20%]">Order #</td>
+                        <td class="ps-5 w-[20%]">Placed On</td>
+                        <td class="ps-5 w-[20%]">Items</td>
+                        <td class="ps-5 w-[15%] text-end">Total</td>
+                        <td class="ps-5 w-[25%] text-end"></td>
+                    </tr>
+                    <tr class="w-full h-12 pt-10">
+                        <td class="ps-5 w-[20%]">650204970739575</td>
+                        <td class="ps-5 w-[20%]">12/11/2023</td>
+                        <td class="ps-5 w-[20%]"><img src="/static/assets/temp/cat1.jpg" alt="" class="h-16 w-16"></td>
+                        <td class="ps-5 w-[15%] text-end">567</td>
+                        <td class="pe-12 w-[25%] text-end text-[#01acff] hover:underline"><a href="#">MANAGE</a></td>
+                    </tr>
+                    <tr class="w-full h-12 pt-10">
+                        <td class="ps-5 w-[20%]">650204970739575</td>
+                        <td class="ps-5 w-[20%]">12/11/2023</td>
+                        <td class="ps-5 w-[20%]"><img src="/static/assets/temp/cat1.jpg" alt="" class="h-16 w-16"></td>
+                        <td class="ps-5 w-[15%] text-end">567</td>
+                        <td class="pe-12 w-[25%] text-end text-[#01acff] hover:underline"><a href="#">MANAGE</a></td>
+                    </tr>
+                    <tr class="w-full h-12 pt-10">
+                        <td class="ps-5 w-[20%]">650204970739575</td>
+                        <td class="ps-5 w-[20%]">12/11/2023</td>
+                        <td class="ps-5 w-[20%]"><img src="/static/assets/temp/cat1.jpg" alt="" class="h-16 w-16"></td>
+                        <td class="ps-5 w-[15%] text-end">567</td>
+                        <td class="pe-12 w-[25%] text-end text-[#01acff] hover:underline"><a href="#">MANAGE</a></td>
+                    </tr>
+                    <tr class="w-full h-12 pt-10">
+                        <td class="ps-5 w-[20%]">650204970739575</td>
+                        <td class="ps-5 w-[20%]">12/11/2023</td>
+                        <td class="ps-5 w-[20%]"><img src="/static/assets/temp/cat1.jpg" alt="" class="h-16 w-16"></td>
+                        <td class="ps-5 w-[15%] text-end">567</td>
+                        <td class="pe-12 w-[25%] text-end text-[#01acff] hover:underline"><a href="#">MANAGE</a></td>
+                    </tr>
+                    <tr class="w-full h-12 pt-10">
+                        <td class="ps-5 w-[20%]">650204970739575</td>
+                        <td class="ps-5 w-[20%]">12/11/2023</td>
+                        <td class="ps-5 w-[20%]"><img src="/static/assets/temp/cat1.jpg" alt="" class="h-16 w-16"></td>
+                        <td class="ps-5 w-[15%] text-end">567</td>
+                        <td class="pe-12 w-[25%] text-end text-[#01acff] hover:underline"><a href="#">MANAGE</a></td>
+                    </tr>
+                    <tr class="w-full h-12 pt-10">
+                        <td class="ps-5 w-[20%]">650204970739575</td>
+                        <td class="ps-5 w-[20%]">12/11/2023</td>
+                        <td class="ps-5 w-[20%]"><img src="/static/assets/temp/cat1.jpg" alt="" class="h-16 w-16"></td>
+                        <td class="ps-5 w-[15%] text-end">567</td>
+                        <td class="pe-12 w-[25%] text-end text-[#01acff] hover:underline"><a href="#">MANAGE</a></td>
+                    </tr>
+                    <tr class="w-full h-12 pt-10">
+                        <td class="ps-5 w-[20%]">650204970739575</td>
+                        <td class="ps-5 w-[20%]">12/11/2023</td>
+                        <td class="ps-5 w-[20%]"><img src="/static/assets/temp/cat1.jpg" alt="" class="h-16 w-16"></td>
+                        <td class="ps-5 w-[15%] text-end">567</td>
+                        <td class="pe-12 w-[25%] text-end text-[#01acff] hover:underline"><a href="#">MANAGE</a></td>
+                    </tr>
+                    
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

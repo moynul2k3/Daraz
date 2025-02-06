@@ -1,0 +1,57 @@
+
+{% extends 'sell_on_daraz/sale_on_daraz.html' %}
+{% load static tailwind_tags %}
+{%block title%} sell_on_daraz {%endblock%}
+
+{% block content %}
+<div class="px-10 py-5 w-full">
+    <p class="text-[20px] font-semibold text-[#01acff]">Inbox | {{ this_conversation.product.name | slice:":30" }}... </p>
+    <div class="w-full h-[670px] mt-4 flex justify-between items-start divide-x-2 bg-white rounded-lg overflow-hidden shadow-md">
+        <div class="h-[670px] w-[70%] {% if '/inbox/0/' in request.path %} block {% else %} hidden {% endif %}">
+            <div class="h-full w-full flex justify-center items-center">
+                <p>Please Select a Item</p>
+            </div>
+        </div>
+        <div class="h-[670px] w-[70%] relative {% if '/inbox/0/' in request.path %} hidden {% else %} block {% endif %}">
+            <div class="h-full w-full pb-20 pt-3 overflow-y-scroll">
+                {% for message in messages %}
+                <div class="px-5 py-2 flex {% if message.created_by.id == sender.id %} justify-end {% else %} justify-start {% endif %}">
+                    <p class="max-w-[70%] p-3 break-words rounded-lg {% if message.created_by.id == sender.id %} bg-[#01acff] text-white {% else %} bg-[#d8d8d82c] text-black/70 border-[1px] {% endif %}"> 
+                        {{ message.message }}
+                    </p>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- ......................message form....................... -->
+            <form action="." method="post" class="absolute bottom-0 w-full flex justify-between items-center gap-3 px-10 py-3 bg-white border-t-[1px]">
+                {% csrf_token %} 
+                <a href="#" class="group">
+                    <i class='bx bx-plus text-3xl text-black/30 group-hover:text-[#01acff]'></i>
+                </a>
+                <div class="w-full">
+                    {{ form.message }}
+                </div>
+                <button type="submit"><i class='bx bxs-send text-3xl text-black/30 hover:text-[#01acff]'></i></button>
+            </form>
+        </div>
+
+        <div class="h-[670px] w-[30%] border-l-2 overflow-auto">
+            {% for conversation in conversations %}
+            <a href="{% url 'sell_on_daraz:inbox' conversation.id %}" class="conversation_item h-20 w-full hover:bg-[#01acff20] cursor-pointer flex justify-between items-center gap-3 border-b-[1px] border-black/20">
+                <div  class="h-full w-[25%] flex justify-center items-center ps-3">
+                    <img src="{{ conversation.product.image.url }}" alt="" class="h-16 w-28 rounded-md">
+                </div>
+                <div class="h-full w-[75%] flex flex-col justify-start items-start pe-3 py-2">
+                    <p class="w-full flex justify-between items-center text-sm">
+                        <span class="font-semibold">{{ conversation.product.name | slice:":15" }}</span>
+                        <span>23/11/2023</span>
+                    </p>
+                    <p class="text-sm line-clamp-2 text-black/65">{{ conversation.message | slice:":10" }}</p>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

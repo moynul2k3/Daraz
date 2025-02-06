@@ -1,0 +1,11 @@
+<p>Load subCategories</p>
+<option value="0"> Please Select </option>
+{% for sub_cat in sub_categories %}
+<option value="{{ sub_cat.pk }}"> {{ sub_cat.name }} </option>
+{% endfor %}
+
+<p>Load Group</p>
+
+{% for group in groups %}
+<option value="{{ group.pk }}"> {{ group.name }} </option>
+{% endfor %}

@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+    height: 10px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+    background: #ffffff;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+    padding-top: 95px;
+    background: #01aaff67;
+    border-radius: 5px;
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #01acff;
+}
+
+
+
+
+#hero .category_item:hover #sub_categories,
+#sub_categories .sub_category_item:hover #groups{
+    display: block;
+}
+
+#groups .group_item:hover .hover_group{
+    @apply text-[#01acff]
+}
+#hero .category_item:hover .hover_category::after,
+#sub_categories .sub_category_item:hover .hover_sub_category::after {
+    font-family: FontAwesome;
+    content: "\f054";
+    display: inline-block;
+    padding-right: 3px;
+    vertical-align: middle;
+    position: absolute;
+    right: 16px;
+}
+
+
+/* ........................Dashboard....................... */
+.active {
+        @apply text-[#01acff]
+    }
+
+#add_new #side_nav .link:hover::after,
+#add_new #side_nav .active::after{
+    font-family: FontAwesome;
+    content: "\f054";
+    display: inline-block;
+    padding-right: 3px;
+    vertical-align: middle;
+    position: absolute;
+    right: 16px;
+}
+#add_new #side_nav a:hover .back::before{
+    font-family: FontAwesome;
+    content: "\f060";
+    display: inline-block;
+    padding-right: 10px;
+    vertical-align: middle;
+}
+

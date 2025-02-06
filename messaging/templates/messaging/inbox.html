@@ -1,0 +1,79 @@
+{% load static tailwind_tags %}
+<div class="h-[540px] w-full bg-white flex">
+    <div class="w-[35%] h-[540px] border-r-[1px] border-black/20">
+        <div class="h-[40px] w-full  cursor-pointer flex justify-between items-center gap-3 px-3 border-b-[1px] border-black/20">
+            <p class="w-[40%] font-semibold text-black/60 py-2 ps-3">Message</p>
+        </div>
+        <div class="h-[500px] overflow-y-scroll ">
+            {% for conversation in conversations %}
+            <div class="h-20 w-full hover:bg-[#01acff20] cursor-pointer flex justify-between items-center gap-3 px-3 border-b-[1px] border-black/20">
+                <img src="/static/assets/temp/cat1.jpg" alt="" class="h-14 w-14 rounded-md">
+                <div class="h-full py-2">
+                    <p class="flex justify-between items-center text-sm">
+                        <span class="font-semibold">MR Project Shop</span>
+                        <span>23/11/2023</span>
+                    </p>
+                    <p class="text-sm line-clamp-2 text-black/65">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Amet aspernatur maxime ullam tempore excepturi aliquid vitae, optio tempora, doloribus repellat dolor voluptate ad. Vel fuga alias expedita minima repudiandae impedit ducimus maxime, dolores tenetur necessitatibus ipsam voluptatibus aliquid repellendus unde voluptates, quis itaque recusandae aut quod eveniet. Praesentium, eius assumenda.</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="w-[65%] h-[540px]">
+        <div class="w-full h-[40px] flex justify-between items-center px-5 border-b-[1px] border-black/20">
+            <p>MR Project Shop</p>
+            <button class="close_messaging font-semibold text-black/60 hover:text-[#01acff] pe-3">Close</button>
+        </div>
+        <div class="h-[500px] w-full relative">
+            <div class="h-full w-full pb-20 pt-3 overflow-y-scroll">
+                {% for message in messages %}
+                <div class="px-5 py-2 flex {% if message.created_by.id == sender %} justify-end {% else %} justify-start {% endif %}">
+                    <p class="w-[70%] bg-[#01acff] p-3 rounded-lg text-white"> {{ message.message }} </p>
+                </div>
+                {% endfor %}
+            </div>
+
+
+
+            <!-- ......................message form....................... -->
+            <form action="." method="post" class="absolute bottom-0 w-full flex justify-between items-center gap-3 px-10 py-3 bg-black/5 border-t-[1px]">
+                {% csrf_token %} 
+                <a href="#" class="group">
+                    <i class='bx bx-plus text-3xl text-black/30 group-hover:text-[#01acff]'></i>
+                </a>
+                <div class="w-full">
+                    {{ form.message }}
+                </div>
+                <button type="submit"><i class='bx bxs-send text-3xl text-black/30 hover:text-[#01acff]'></i></button>
+            </form>
+
+            <!-- <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script> 
+            <script type="text/javascript"> 
+            $(document).on('submit','#message_form',function(e){ 
+                e.preventDefault(); 
+                $.ajax({ 
+                    type:'POST', 
+                    url:'{% url "mainapp:index" %}', 
+                    data: 
+                    { 
+                        task:$("#message").val(), 
+                        csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val() 
+                    }, 
+                    success:function(){ 
+                        // alert('Saved'); 
+                        } 
+                    }) 
+                }); 
+            </script>  -->
+        </div>
+    </div>
+</div>
+
+
+<!-- <form method="post" id="task-form"> 
+        {% csrf_token %} 
+        <input type="text" placeholder="Enter Task" name="task" id="task" required> 
+        <button type="submit">Save</button> 
+    </form>  -->
+  
+   

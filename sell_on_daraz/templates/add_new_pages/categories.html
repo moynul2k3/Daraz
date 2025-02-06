@@ -1,0 +1,74 @@
+
+{% extends 'sell_on_daraz/sale_on_daraz.html' %}
+{% load static tailwind_tags %}
+{%block title%} sell_on_daraz {%endblock%}
+
+{% block content %}
+<div class="px-10 py-5 w-full">
+    <p class="text-[20px] font-semibold text-[#01acff]">Sell On Daraz | Categories</p>
+    <div class="w-full mt-4 flex flex-col gap-5">
+
+        
+        <form action="." method="post" enctype="multipart/form-data" class="h-32 w-full flex justify-center items-center gap-5 bg-white rounded-lg relative" >
+            {% csrf_token %}
+            <div class="h-10 w-[500px] p-0 m-0 text-sm flex justify-center items-center border-[1px] rounded-lg overflow-hidden bg-transparent">
+                <label for="name" class="h-full px-9 font-semibold flex justify-center items-center bg-black text-white">Name</label>
+                {{ category_form.name }}
+            </div>
+            
+
+            <!-- {% if category_form.errors or category_form.non_field_errors %}
+            <div class="mb-3 p-6 bg-red-100 rounded-xl absolute -bottom-0">
+                {% for field in category_form %}
+                    {{ field.errors }}
+                {% endfor %}
+                {{ category_form.non_field_errors }}
+            </div>
+            {% endif %} -->
+
+
+            <button name="new_category_form" type="submit" class="px-16 h-10 font-semibold bg-[#01aaff3d] hover:bg-[#01acff] hover:text-white  border border-gray-300 rounded-lg focus:ring-[#01aaff] focus:border-[#01aaff3d]">ADD</button>
+            
+        </form>
+
+        
+        <div class="w-full bg-white rounded-lg">
+            <p class="text-2xl py-4 px-10 text-[#01acff] ">Categories</p>
+            <!-- ...................Categories................... -->
+            <ul class="h-[450px] w-full grid grid-cols-2 content-start gap-3 pt-1 pb-36 overflow-auto px-10">
+                {% for cat in categories %}
+                <li class="w-full h-14 bg-[#01aaff0c] shadow shadow-[#01aaff49] px-5 rounded-md flex justify-between items-center font-semibold">
+                    {{ cat.name }}
+                    <div class=" flex justify-center items-center relative">
+                        <button class="group inline-flex self-center items-start p-2 text-sm font-medium text-center text-black rounded-lg hover:bg-[#01acff50]">
+                            <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 4 15">
+                                <path d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/>
+                            </svg>
+                            <div class="hidden group-hover:block z-10 bg-white divide-y divide-gray-100 rounded-lg shadow shadow-[#01acff70] w-28 absolute right-[33px] top-3">
+                                <ul class="py-2 text-sm text-start text-gray-700" aria-labelledby="dropdownMenuIconButton">
+                                    <li>
+                                        <a href="{% url 'sell_on_daraz:edit_category' cat.id %}" class="block px-4 py-2 hover:bg-[#01acff50]">Edit</a>
+                                    </li>
+                                    <li>
+                                        <form action="{% url 'sell_on_daraz:delete_category' cat.id %}" method="post">
+                                            {% csrf_token %}
+                                            <input name="delete_category" type="submit" value="Delete" class="block w-full text-start px-4 py-2 hover:bg-[#01acff50]" onclick="return confirmDelete();">
+                                        </form>
+
+                                        <script>
+                                            function confirmDelete() {
+                                                return confirm("Are you sure you want to delete this Category?");
+                                            }
+                                        </script>
+                                    </li>
+                                </ul>
+                            </div>
+                        </button>
+                    </div>
+                </li>
+                {% endfor %} 
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

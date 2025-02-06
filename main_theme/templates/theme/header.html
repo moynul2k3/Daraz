@@ -1,0 +1,120 @@
+{% load static tailwind_tags %}
+<header class="h-auto px-10 lg:px-16 xl:px-64  bg-[#2d60ad] text-white sticky top-0 z-50">
+    <div id="top_nav" class="block">
+        <nav id="nav1" class="flex justify-between items-center text-[12px]">
+            <div class="flex justify-between items-center gap-10 ">
+                <a href="{% url 'sell_on_daraz:for_sale' %}" class="px-3 py-1 rounded-b-lg hover:bg-black/30">Become a Seller</a> 
+                <a href="#" class="py-1 px-3 rounded-b-lg hover:bg-black/30">Daraz Donates</a>
+                <a href="#" class="py-1 px-3 rounded-b-lg hover:bg-black/30">Help & Support</a>
+            </div>
+            <div>
+                <a href="#" class="py-2 px-5 rounded-b-lg bg-black/30 hover:bg-black/20">Save More on App</a>
+            </div>
+        </nav>
+    </div>
+    <!-- <script>
+        $(window).scroll(function(){
+            var scrollTop = $(window).scrollTop();
+            if(scrollTop >= 300) {
+                $("#top_nav").hide();
+            }
+            else{
+                $("#top_nav").show();
+            }
+        });
+    </script> -->
+
+    <nav id="nav2" class="flex justify-between items-center gap-2 pt-1 relative" >
+        <a href="{% url 'mainapp:index' %}" class="w-[200px] h-[70px]"><img src="{% static '/assets/logo/daraz_main.png' %}" alt="" class="w-[200px] h-[70px]"></a>
+
+        {% url 'mainapp:index' as index  %}
+        <div id="categories" class="mx-1 w-[150px]  px-3 py-2 hover:bg-black/30 rounded-lg  gap-3 group {% if request.path == index %} hidden {% endif %}">
+            <p class="text-sm flex justify-center items-center gap-3">Categories <i class="up_categories fa-solid fa-angle-down text-sm"></i></p>
+            <div class="h-[380px] w-[280px] pt-6 absolute top-12 left-0 hidden group-hover:block">
+                {% include 'theme/categories.html' %}
+            </div>
+        </div>
+
+        <!-- .........................searchbox.................... -->
+        <form method="get" action="{% url 'product:filters' %}" class="w-full">
+            <input name="query" type="text" placeholder="Search in Daraz..."   id="src-box"  class="w-full rounded-2xl text-black">
+        </form>
+
+
+        
+        <div class="w-[400px] text-[14px] font-bold flex justify-between items-center divide-x-2">
+            {% if request.user.is_authenticated %}
+                <div class=" w-full mx-2 px-2 py-1 flex flex-col justify-center items-center relative group hover:bg-black/20 rounded-md">
+                    <div class="flex justify-start items-center gap-2 cursor-pointer ">
+                        <div class="p-3 bg-white/20 rounded-full flex justify-center items-center">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        <div>
+                            <p class="font-thin line-clamp-1">Hello {{ user.username }} </p>
+                            <p class="font-bold">Orders & Account</p>
+                        </div>
+                    </div>
+                    <div class="absolute hidden group-hover:block h-80 w-72 top-[40px] ">
+                        <div class="profile h-full mt-[14px] w-full bg-white shadow-[inset_1px_1px_5px_#01acff] rounded-md px-5 py-5 flex flex-col gap-6">
+                            <a href="{% url 'dashboard:manage_ac' %}" class="flex justify-start items-center gap-3 text-black/50 group/item">
+                                <i class='bx bx-smile text-[25px] font-thin'></i> 
+                                <p class="text-sm group-hover/item:underline group-hover/item:text-[#01acff] font-semibold">Manage My Account</p>
+                            </a>
+                            <a href="{% url 'dashboard:my_orders' %}" class="flex justify-start items-center gap-3 text-black/50 group/item">
+                                <i class='bx bxs-shopping-bag-alt  text-[25px] font-thin' ></i>
+                                <p class="text-sm group-hover/item:underline group-hover/item:text-[#01acff] font-semibold">My Orders</p>
+                            </a>
+                            <a href="{% url 'dashboard:wishlist' %}" class="flex justify-start items-center gap-3 text-black/50 group/item">
+                                <i class='bx bx-heart text-[25px] font-thin'></i>
+                                <p class="text-sm group-hover/item:underline group-hover/item:text-[#01acff] font-semibold">My Wishlist & Followed Stores</p>
+                            </a>
+                            <a href="{% url 'dashboard:my_reviews' %}" class="flex justify-start items-center gap-3 text-black/50 group/item">
+                                <i class='bx bx-star text-[25px] font-thin'></i> 
+                                <p class="text-sm group-hover/item:underline group-hover/item:text-[#01acff] font-semibold">My Reviews</p>
+                            </a>
+                            <a href="{% url 'dashboard:my_returns' %}" class="flex justify-start items-center gap-3 text-black/50 group/item">
+                                <i class='bx bx-plus rotate-45 border-[1px] border-black/50 rounded-full text-[20px] font-thin'></i> 
+                                <p class="text-sm group-hover/item:underline group-hover/item:text-[#01acff] font-semibold">My Returns & Cancellations</p>
+                            </a>
+                            <a href="{% url 'mainapp:logout' %}" class="flex justify-start items-center gap-3 text-black/50 group/item">
+                                <i class='bx bx-log-out text-[25px] font-thin'></i> 
+                                <p class="text-sm group-hover/item:underline group-hover/item:text-[#01acff] font-semibold">Logout</p>
+                            </a>
+                        </div>
+                        <div class="absolute -top-0 w-full flex justify-center">
+                            <img src="/static/assets/icon/up-arrow.png" alt="" class="h-10 w-10 ">
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+            <div class="flex justify-center items-center">
+                <a href="{% url 'mainapp:login' %}" class="w-[100px] h-[40px] rounded-md me-2 hover:bg-black/20 flex justify-center items-center gap-2 group"><i class='bx bx-user text-[25px]'></i><span class="group-hover:underline">Login</span></a>
+                <hr class="border-[1px] border-white h-8">
+                <a href="{% url 'mainapp:signup' %}" class="w-[100px] h-[40px] rounded-md ms-2 hover:bg-black/20 flex justify-center items-center group"><span class="group-hover:underline">Sign Up</span></a>
+            </div>
+            {% endif %}
+        </div>
+        <div class="w-40 flex justify-between items-center">
+            <a href="#" class="text-[16px] flex justify-center items-center p-2 rounded-md hover:bg-black/20"><i class='bx bx-globe text-[25px]' ></i>EN</a>
+            <a href="#" class="flex justify-center items-center p-2 rounded-md hover:bg-black/20"><i class='bx bxs-cart text-[35px]'></i></a>
+        </div>
+
+
+        
+    </nav>
+</header>
+{% if request.path == index %}
+    <script>
+        $(function(){
+            $(window).scroll(function(){
+                var TopCategories = $(window).scrollTop();
+                if(TopCategories >= 150) {
+                    $("#categories").show();
+                }
+                else{
+                    $("#categories").hide();
+                }
+            });
+        })
+    </script>
+{% endif %}
